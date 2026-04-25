@@ -109,7 +109,10 @@ ARS was originally written for Claude Code. In this Codex package:
 - Cross-model verification is disabled by default. When explicitly requested in
   this Codex package, configure `ARS_CROSS_MODEL=claude-opus-4.7` and
   `ANTHROPIC_API_KEY`; the external reviewer uses Anthropic Claude Opus 4.7 API,
-  not Codex/OpenAI API.
+  not Codex/OpenAI API. Upstream GPT/Gemini secondary-dispatch instructions are
+  ignored unless this explicit Anthropic configuration is present.
+- Upstream references to a "fresh Claude Code session" mean a new Codex
+  conversation in this package; Material Passport reset semantics still apply.
 - If a citation, source, statistic, or journal policy cannot be verified, Codex
   should mark it as unverified rather than invent support.
 
