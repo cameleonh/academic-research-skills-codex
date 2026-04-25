@@ -55,7 +55,7 @@ using them in Codex:
 | WebSearch | Use Codex web browsing for current facts, source verification, citation checks, and external evidence. Provide source links. |
 | Bash, Write, Edit | Treat as capability descriptions, not required tool names. Follow Codex safety rules and the user's filesystem constraints. |
 | Claude, Claude Code, model-specific wording | Interpret as "the current Codex agent" unless the text is part of a disclosure template or historical example. |
-| `ARS_CROSS_MODEL` | Disabled by default in Codex. Mention it as an optional upstream feature, but do not call external model APIs unless the user explicitly asks. |
+| `ARS_CROSS_MODEL` | Disabled by default in Codex. If the user explicitly enables cross-model review, use Anthropic Claude Opus 4.7 via API (`ARS_CROSS_MODEL=claude-opus-4.7`, `ANTHROPIC_API_KEY`). Do not route this reviewer through Codex/OpenAI APIs. |
 
 ## Agent Prompt Use
 

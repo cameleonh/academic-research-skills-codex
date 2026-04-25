@@ -106,10 +106,25 @@ ARS was originally written for Claude Code. In this Codex package:
   for delegated or parallel agent work.
 - Web/source verification uses Codex browsing and must cite sources when current
   or external facts matter.
-- Cross-model verification is disabled by default. Ask for it explicitly before
-  using external model APIs.
+- Cross-model verification is disabled by default. When explicitly requested in
+  this Codex package, configure `ARS_CROSS_MODEL=claude-opus-4.7` and
+  `ANTHROPIC_API_KEY`; the external reviewer uses Anthropic Claude Opus 4.7 API,
+  not Codex/OpenAI API.
 - If a citation, source, statistic, or journal policy cannot be verified, Codex
   should mark it as unverified rather than invent support.
+
+### Optional Claude Opus 4.7 Reviewer API
+
+For reviewer calibration or cross-model devil's advocate checks:
+
+```bash
+export ANTHROPIC_API_KEY="sk-ant-your-key-here"
+export ARS_CROSS_MODEL="claude-opus-4.7"
+```
+
+Then ask for cross-model verification explicitly in the prompt. Without both
+environment variables, ARS Codex falls back to single-runtime review and should
+report that the Claude Opus 4.7 verifier was unavailable.
 
 ### File Layout For Advanced Use
 
