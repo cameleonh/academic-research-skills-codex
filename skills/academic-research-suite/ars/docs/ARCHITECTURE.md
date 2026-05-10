@@ -21,6 +21,7 @@ mechanics. Apply these Codex mappings when reading the diagrams and matrices:
 |---|---|
 | `deep-research`, `academic-paper`, `academic-paper-reviewer`, `academic-pipeline` as separate skills | Vendored workflows selected by the single `$academic-research-suite` router |
 | `/ars-*` slash commands | Emulated by `ars-*` aliases handled in the router; not native Codex slash commands |
+| Vague paper topic without a clear RQ | Router starts with `deep-research` `socratic` mode before outline, drafting, or full pipeline execution |
 | Agent Team / agent dispatch | Agent markdown files are role prompts run inline unless the user explicitly asks for delegated or parallel agents |
 | Plugin agents and `model: inherit` | Preserved as upstream metadata; Codex uses the active model |
 | SessionStart / SubagentStop hooks | Vendored for traceability only; not installed or executed by Codex |

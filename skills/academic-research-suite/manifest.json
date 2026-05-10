@@ -1,6 +1,6 @@
 {
   "name": "academic-research-suite",
-  "adapter_version": "0.1.5",
+  "adapter_version": "0.1.6",
   "version_file": "VERSION",
   "generated_for": "codex",
   "generated_date": "2026-05-10",
@@ -83,6 +83,7 @@
     "Upstream slash commands are vendored as prompt recipes and emulated through the Codex SKILL.md alias router; Codex does not register native slash commands.",
     "Vendored upstream workflow entry files are renamed from SKILL.md to WORKFLOW.md in this Codex package so Codex registers only the root academic-research-suite router skill.",
     "Vague paper-topic requests without a clear research question are routed to deep-research socratic mode before outline, drafting, or full pipeline execution.",
+    "User-facing setup docs include reinstall, /skills verification, and Codex CLI smoke-test guidance for existing-session cache behavior.",
         "docs/SETUP.md, docs/SETUP.zh-TW.md, and docs/ARCHITECTURE.md are Codex-adapted documentation overlays, not verbatim upstream Claude Code docs.",
         "The v3.7.1 pattern-protection validator is patched to resolve git object paths from the nested Codex vendored root.",
         "The Codex package carries scripts/codex_v3_6_7_block_baseline.json so first-time vendored trees can enforce v3.6.7 block byte-equivalence before Git history contains the upstream manifest.",

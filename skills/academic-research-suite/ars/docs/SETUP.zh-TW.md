@@ -6,21 +6,44 @@ Claude Code plugin 安裝指南。Claude Code 原生版本請使用
 
 ## 最小可行設定
 
-安裝單一 Codex skill：
+安裝單一 Codex skill。建議使用 `--method git`，讓 GitHub 認證與 private repo
+存取行為比較穩定：
 
 ```bash
 python /Users/imbad/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo Imbad0202/academic-research-skills-codex \
-  --path skills/academic-research-suite
+  --ref main \
+  --path skills/academic-research-suite \
+  --method git
 ```
 
-安裝後重啟 Codex。
+更新既有安裝：
+
+```bash
+rm -rf /Users/imbad/.codex/skills/academic-research-suite
+python /Users/imbad/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo Imbad0202/academic-research-skills-codex \
+  --ref main \
+  --path skills/academic-research-suite \
+  --method git
+```
+
+安裝後開新的 Codex conversation。已經開著的 session 可能保留舊的 skill
+cache；不用為了更新這個 skill 去關掉其他 Claude 或 Codex session。
 
 使用時明確呼叫：
 
 ```text
 Use $academic-research-suite to plan a systematic literature review on AI in higher education QA.
 ```
+
+Skill 名稱是單數：`$academic-research-suite`。
+
+用 `/skills` 驗證安裝。正常狀態應該只看到一個 ARS 入口：
+`academic-research-suite` 或 `Academic Research ...`。如果看到本 package
+額外暴露 `academic-paper`、`academic-pipeline`、`deep-research`、
+`academic-paper-reviewer` 等獨立 skill，請用上方更新指令重新安裝，並開新的
+Codex conversation。
 
 一般 Codex 使用不需要 Anthropic API key。主要模型由目前 Codex runtime
 提供。`ANTHROPIC_API_KEY` 只用於下方選用的外部 Claude Opus reviewer。
@@ -59,6 +82,73 @@ Use $academic-research-suite: ars-outline for this manuscript draft.
 
 `commands/ars-*.md` frontmatter 裡的 `model: opus` / `model: sonnet` 是
 Claude Code routing metadata。Codex 會使用目前 active model，除非使用者在對話中明確指定其他模型。
+
+## 模糊論文題目的 Socratic 收斂
+
+當使用者說想寫論文，但只有題目、暫定標題或大方向，還沒有明確 research
+question 時，Codex router 應比照 upstream ARS：先進 `deep-research`
+`socratic` mode，不直接產生大綱、draft 或完整 pipeline。
+
+建議 prompt：
+
+```text
+Use $academic-research-suite.
+我想做一篇論文，題目方向是 AI adoption in higher education quality assurance。
+我還沒有明確 research question。
+請先用 SCR / Socratic 問答幫我收斂問題，不要先寫大綱。
+```
+
+預期行為：
+
+- route 到 `deep-research` `socratic` mode
+- 先問收斂問題
+- 條件足夠後才整理 2-3 個候選 RQ
+- RQ 清楚前不進入 `academic-paper` 大綱或寫作
+
+如果要跑完整 pipeline，但 Stage 1 先 SCR：
+
+```text
+Use $academic-research-suite to start academic-pipeline.
+Stage 1 請先用 deep-research socratic mode，因為我目前只有模糊主題。
+Stop after the RQ Brief and pipeline dashboard.
+```
+
+## Smoke tests
+
+Codex app / interactive CLI：
+
+```text
+/skills
+```
+
+預期：只看到一個 ARS 入口。
+
+Router smoke：
+
+```text
+Use $academic-research-suite.
+我想做一篇論文，題目方向是 AI adoption in higher education quality assurance。
+我還沒有明確 research question。
+```
+
+預期：進入 `deep-research` `socratic` mode。
+
+Codex CLI：
+
+```bash
+codex exec --ephemeral --sandbox read-only \
+  -C /Users/imbad/Projects/academic-research-skills-codex \
+  'Use $academic-research-suite. Router smoke test only. User request to classify: 我想做一篇論文，題目方向是 AI adoption in higher education quality assurance，但我還沒有明確 research question。 According to the academic-research-suite router, classify the workflow and mode.'
+```
+
+## 不代表安裝失敗的 Codex 警告
+
+看到下列訊息不代表 ARS 安裝失敗：
+
+- `[features].codex_hooks is deprecated`：有空再更新 Codex config 即可。ARS
+  Codex 正常使用不需要 hooks。
+- `hooks need review before they can run`：如果你有使用那些 hooks，再另外審核即可。本
+  package vendored 的 Claude hooks 只作 traceability，不會被 Codex 安裝或執行。
 
 ## 選用本機工具
 

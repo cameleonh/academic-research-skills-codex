@@ -7,21 +7,45 @@ For the native Claude Code version, use
 
 ## Minimum Viable Setup
 
-Install the single Codex skill:
+Install the single Codex skill. Use `--method git` so GitHub authentication and
+private-repo access behave consistently:
 
 ```bash
 python /Users/imbad/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo Imbad0202/academic-research-skills-codex \
-  --path skills/academic-research-suite
+  --ref main \
+  --path skills/academic-research-suite \
+  --method git
 ```
 
-Restart Codex after installation.
+To update an existing install:
+
+```bash
+rm -rf /Users/imbad/.codex/skills/academic-research-suite
+python /Users/imbad/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo Imbad0202/academic-research-skills-codex \
+  --ref main \
+  --path skills/academic-research-suite \
+  --method git
+```
+
+Open a new Codex conversation after installation. Existing sessions may keep
+their old skill cache; do not close unrelated Claude or Codex sessions just to
+pick up this skill.
 
 Then invoke the suite explicitly:
 
 ```text
 Use $academic-research-suite to plan a systematic literature review on AI in higher education QA.
 ```
+
+The skill name is singular: `$academic-research-suite`.
+
+Verify the install with `/skills`. You should see one ARS entry only:
+`academic-research-suite` or `Academic Research ...`. If you see separate
+`academic-paper`, `academic-pipeline`, `deep-research`, or
+`academic-paper-reviewer` entries from this package, reinstall with the update
+command above and open a new Codex conversation.
 
 No Anthropic API key is required for normal Codex use. The active Codex runtime
 supplies the primary model. Optional Anthropic configuration is only for the
@@ -63,6 +87,76 @@ Use $academic-research-suite: ars-outline for this manuscript draft.
 The `model: opus` / `model: sonnet` fields in `commands/ars-*.md` are Claude
 Code routing metadata. Codex uses the active model unless the user explicitly
 requests a different model in the conversation.
+
+## Socratic Scoping For Vague Paper Topics
+
+When the user says they want to write a paper but only has a topic, tentative
+title, or broad direction, the Codex router should follow upstream ARS behavior:
+start with `deep-research` `socratic` mode before outline, drafting, or full
+pipeline execution.
+
+Use this prompt shape:
+
+```text
+Use $academic-research-suite.
+I want to write a paper on AI adoption in higher education quality assurance.
+I do not yet have a clear research question.
+Please use SCR / Socratic questioning to narrow the research question first.
+Do not produce an outline yet.
+```
+
+Expected behavior:
+
+- route to `deep-research` `socratic` mode
+- ask narrowing questions first
+- produce 2-3 candidate RQs only after the dialogue has enough constraints
+- do not start `academic-paper` outline/drafting until the RQ is clear
+
+For a full pipeline with Socratic Stage 1, say:
+
+```text
+Use $academic-research-suite to start academic-pipeline.
+Stage 1 must begin with deep-research socratic mode because I only have a broad topic.
+Stop after the RQ Brief and pipeline dashboard.
+```
+
+## Smoke Tests
+
+Codex app / interactive CLI:
+
+```text
+/skills
+```
+
+Expected: one ARS entry only.
+
+Router smoke:
+
+```text
+Use $academic-research-suite.
+我想做一篇論文，題目方向是 AI adoption in higher education quality assurance。
+我還沒有明確 research question。
+```
+
+Expected: `deep-research` `socratic` mode.
+
+Codex CLI:
+
+```bash
+codex exec --ephemeral --sandbox read-only \
+  -C /Users/imbad/Projects/academic-research-skills-codex \
+  'Use $academic-research-suite. Router smoke test only. User request to classify: 我想做一篇論文，題目方向是 AI adoption in higher education quality assurance，但我還沒有明確 research question。 According to the academic-research-suite router, classify the workflow and mode.'
+```
+
+## Non-Blocking Codex Warnings
+
+These messages do not mean ARS failed to install:
+
+- `[features].codex_hooks is deprecated`: update your Codex config when
+  convenient. ARS Codex does not require hooks for normal use.
+- `hooks need review before they can run`: review those hooks separately if you
+  use them. Vendored Claude hooks in this package are traceability metadata and
+  are not installed or executed by Codex.
 
 ## Optional Local Tools
 

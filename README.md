@@ -38,7 +38,7 @@ Use this repo when you want the Codex-native single-suite skill.
 
 ## Versioning
 
-This Codex package is version `0.1.5`. The repo-root `VERSION` file,
+This Codex package is version `0.1.6`. The repo-root `VERSION` file,
 `skills/academic-research-suite/SKILL.md` metadata version, and
 `skills/academic-research-suite/manifest.json` `adapter_version` track the
 Codex package version independently of the vendored ARS suite. Vendored upstream
@@ -47,17 +47,39 @@ versions are recorded by commit in `manifest.source_repositories[]`.
 The vendored ARS source currently tracks
 `Imbad0202/academic-research-skills@1d0c8625207c9cd8fc46132b1ef930f2cc012236`.
 
-## Install
+## Install Or Update
 
-Install the skill from this repo path:
+Install the skill from this repo path. Use `--method git` so private or
+credentialed GitHub access works consistently:
 
 ```bash
 python /Users/imbad/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
   --repo Imbad0202/academic-research-skills-codex \
-  --path skills/academic-research-suite
+  --ref main \
+  --path skills/academic-research-suite \
+  --method git
 ```
 
-Restart Codex after installation.
+To update an existing install:
+
+```bash
+rm -rf /Users/imbad/.codex/skills/academic-research-suite
+python /Users/imbad/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo Imbad0202/academic-research-skills-codex \
+  --ref main \
+  --path skills/academic-research-suite \
+  --method git
+```
+
+Open a new Codex conversation after installation. Existing Codex sessions may
+keep their old skill cache; you do not need to close unrelated Claude or Codex
+sessions.
+
+Verify with `/skills`: you should see one ARS entry, `academic-research-suite`
+or `Academic Research ...`. You should **not** see separate `academic-paper`,
+`academic-pipeline`, `deep-research`, or `academic-paper-reviewer` skills from
+this package. If you do, reinstall with the update command above and open a new
+Codex conversation.
 
 ## Codex Docs
 
@@ -69,9 +91,9 @@ Restart Codex after installation.
 
 ## Usage
 
-Invoke the suite explicitly with `$academic-research-suite`, then describe the
-research task and provide any source files, notes, draft text, reviewer comments,
-or output constraints.
+Invoke the suite explicitly with `$academic-research-suite` (singular), then
+describe the research task and provide any source files, notes, draft text,
+reviewer comments, or output constraints.
 
 ```text
 Use $academic-research-suite to help me plan a systematic literature review on
@@ -150,6 +172,10 @@ Use $academic-research-suite.
 請先用 SCR / Socratic 問答幫我收斂問題，不要先寫大綱。
 ```
 
+Expected route: `deep-research` `socratic` mode first. ARS should ask narrowing
+questions and should not produce an outline or draft until the research question
+has converged.
+
 For review tasks, provide the manuscript or a path to the manuscript, plus the
 review mode you want:
 
@@ -167,6 +193,44 @@ entire process silently:
 Use $academic-research-suite to start an academic-pipeline run.
 Begin with Stage 0 intake and stop after producing the pipeline dashboard.
 ```
+
+### Smoke Tests
+
+In a new Codex conversation:
+
+```text
+/skills
+```
+
+Expected: one ARS entry only.
+
+Then test Socratic routing:
+
+```text
+Use $academic-research-suite.
+我想做一篇論文，題目方向是 AI adoption in higher education quality assurance。
+我還沒有明確 research question。
+```
+
+Expected: route to `deep-research` `socratic` mode and ask narrowing questions.
+
+CLI smoke test:
+
+```bash
+codex exec --ephemeral --sandbox read-only \
+  -C /Users/imbad/Projects/academic-research-skills-codex \
+  'Use $academic-research-suite. Router smoke test only. User request to classify: 我想做一篇論文，題目方向是 AI adoption in higher education quality assurance，但我還沒有明確 research question。 According to the academic-research-suite router, classify the workflow and mode.'
+```
+
+### Non-Blocking Codex Warnings
+
+These Codex messages do not mean ARS failed to install:
+
+- `[features].codex_hooks is deprecated` — update your Codex config when
+  convenient; ARS Codex does not require hooks for normal use.
+- `hooks need review before they can run` — review those hooks separately if
+  you use them. ARS Codex treats vendored Claude hooks as traceability metadata
+  and does not require them.
 
 ### Codex Adapter Behavior
 
