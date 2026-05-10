@@ -1,6 +1,6 @@
 {
   "name": "academic-research-suite",
-  "adapter_version": "0.1.3",
+  "adapter_version": "0.1.4",
   "version_file": "VERSION",
   "generated_for": "codex",
   "generated_date": "2026-05-10",
@@ -81,6 +81,7 @@
     "Claude Code agent-team wording is adapted by SKILL.md into Codex inline role-prompt usage.",
     "The original local ARS checkout under /Users/imbad/Projects/academic-research-skills was not used as a write target.",
     "Upstream slash commands are vendored as prompt recipes and emulated through the Codex SKILL.md alias router; Codex does not register native slash commands.",
+    "Vendored upstream workflow entry files are renamed from SKILL.md to WORKFLOW.md in this Codex package so Codex registers only the root academic-research-suite router skill.",
         "docs/SETUP.md, docs/SETUP.zh-TW.md, and docs/ARCHITECTURE.md are Codex-adapted documentation overlays, not verbatim upstream Claude Code docs.",
         "The v3.7.1 pattern-protection validator is patched to resolve git object paths from the nested Codex vendored root.",
         "The Codex package carries scripts/codex_v3_6_7_block_baseline.json so first-time vendored trees can enforce v3.6.7 block byte-equivalence before Git history contains the upstream manifest.",

@@ -14,7 +14,7 @@ description: >
   /ars-revision-coach, /ars-revision, and /ars-full. This skill vendors ARS
   role prompts, references, templates, and shared handoff schemas under ars/.
 metadata:
-  version: "0.1.3"
+  version: "0.1.4"
   upstream_suite: "academic-research-skills"
   codex_adapter: true
 ---
@@ -26,7 +26,7 @@ This is a Codex adapter for the ARS suite. The vendored ARS content lives under
 
 ## Versioning
 
-This Codex package is version `0.1.3`. The repo-root `VERSION`, this
+This Codex package is version `0.1.4`. The repo-root `VERSION`, this
 `SKILL.md` metadata version, and `manifest.json` `adapter_version` must match.
 Vendored ARS suite versions are tracked separately by source repository commit
 in `manifest.json`.
@@ -34,8 +34,12 @@ in `manifest.json`.
 ## First Rule
 
 Do not load the whole suite by default. Select one workflow, read that workflow's
-`SKILL.md`, then load only the agent, reference, template, or shared files needed
+`WORKFLOW.md`, then load only the agent, reference, template, or shared files needed
 for the user's current stage.
+
+The internal workflow entry files are named `WORKFLOW.md`, not `SKILL.md`, so
+Codex registers only this root router skill instead of exposing every vendored
+upstream workflow as a separate skill.
 
 ## Workflow Router
 
@@ -43,13 +47,13 @@ Choose the workflow by intent:
 
 | User intent | Read first |
 |---|---|
-| Deep research, literature review, systematic review, meta-analysis, fact-checking, research question refinement | `ars/deep-research/SKILL.md` |
-| Academic paper writing, paper outline, abstract, revision, citation formatting, AI disclosure, LaTeX/DOCX/PDF formatting guidance | `ars/academic-paper/SKILL.md` |
-| Paper review, peer review simulation, editorial decision, reviewer calibration, re-review after revision | `ars/academic-paper-reviewer/SKILL.md` |
-| End-to-end research-to-paper pipeline, integrity gate, staged review/revision/finalization workflow | `ars/academic-pipeline/SKILL.md` |
-| Experiment planning, code experiment execution plan, human study protocol, statistical interpretation, reproducibility validation | `ars/experiment-agent/SKILL.md` |
+| Deep research, literature review, systematic review, meta-analysis, fact-checking, research question refinement | `ars/deep-research/WORKFLOW.md` |
+| Academic paper writing, paper outline, abstract, revision, citation formatting, AI disclosure, LaTeX/DOCX/PDF formatting guidance | `ars/academic-paper/WORKFLOW.md` |
+| Paper review, peer review simulation, editorial decision, reviewer calibration, re-review after revision | `ars/academic-paper-reviewer/WORKFLOW.md` |
+| End-to-end research-to-paper pipeline, integrity gate, staged review/revision/finalization workflow | `ars/academic-pipeline/WORKFLOW.md` |
+| Experiment planning, code experiment execution plan, human study protocol, statistical interpretation, reproducibility validation | `ars/experiment-agent/WORKFLOW.md` |
 
-If the request spans multiple workflows, start with `ars/academic-pipeline/SKILL.md`
+If the request spans multiple workflows, start with `ars/academic-pipeline/WORKFLOW.md`
 unless the user clearly asked for a single phase.
 
 ## Claude-Style Alias Router
@@ -58,23 +62,23 @@ Codex does not install Claude slash commands, but this package emulates their
 intent. If the user's request starts with a slash alias (`/ars-plan`) or a plain
 alias (`ars-plan`), treat it as a mode shortcut, strip the alias token from the
 task text, read the matching `ars/commands/ars-*.md` prompt recipe, then route
-to the workflow `SKILL.md` below.
+to the workflow `WORKFLOW.md` below.
 
 The `model:` field in command frontmatter is a Claude routing hint only. Codex
 uses the current model unless the user explicitly requests another model.
 
 | Alias | Read command recipe | Then route to |
 |---|---|---|
-| `/ars-plan`, `ars-plan` | `ars/commands/ars-plan.md` | `ars/academic-paper/SKILL.md` in `plan` mode |
-| `/ars-outline`, `ars-outline` | `ars/commands/ars-outline.md` | `ars/academic-paper/SKILL.md` in `outline-only` mode |
-| `/ars-abstract`, `ars-abstract` | `ars/commands/ars-abstract.md` | `ars/academic-paper/SKILL.md` in `abstract-only` mode |
-| `/ars-lit-review`, `ars-lit-review` | `ars/commands/ars-lit-review.md` | `ars/academic-paper/SKILL.md` in `lit-review` mode; if the user wants source discovery and synthesis instead, route to `ars/deep-research/SKILL.md` in `lit-review` mode |
-| `/ars-citation-check`, `ars-citation-check` | `ars/commands/ars-citation-check.md` | `ars/academic-paper/SKILL.md` in `citation-check` mode |
-| `/ars-disclosure`, `ars-disclosure` | `ars/commands/ars-disclosure.md` | `ars/academic-paper/SKILL.md` in `disclosure` mode |
-| `/ars-format-convert`, `ars-format-convert` | `ars/commands/ars-format-convert.md` | `ars/academic-paper/SKILL.md` in `format-convert` mode |
-| `/ars-revision-coach`, `ars-revision-coach` | `ars/commands/ars-revision-coach.md` | `ars/academic-paper/SKILL.md` in `revision-coach` mode |
-| `/ars-revision`, `ars-revision` | `ars/commands/ars-revision.md` | `ars/academic-paper/SKILL.md` in `revision` mode |
-| `/ars-full`, `ars-full` | `ars/commands/ars-full.md` | `ars/academic-pipeline/SKILL.md` |
+| `/ars-plan`, `ars-plan` | `ars/commands/ars-plan.md` | `ars/academic-paper/WORKFLOW.md` in `plan` mode |
+| `/ars-outline`, `ars-outline` | `ars/commands/ars-outline.md` | `ars/academic-paper/WORKFLOW.md` in `outline-only` mode |
+| `/ars-abstract`, `ars-abstract` | `ars/commands/ars-abstract.md` | `ars/academic-paper/WORKFLOW.md` in `abstract-only` mode |
+| `/ars-lit-review`, `ars-lit-review` | `ars/commands/ars-lit-review.md` | `ars/academic-paper/WORKFLOW.md` in `lit-review` mode; if the user wants source discovery and synthesis instead, route to `ars/deep-research/WORKFLOW.md` in `lit-review` mode |
+| `/ars-citation-check`, `ars-citation-check` | `ars/commands/ars-citation-check.md` | `ars/academic-paper/WORKFLOW.md` in `citation-check` mode |
+| `/ars-disclosure`, `ars-disclosure` | `ars/commands/ars-disclosure.md` | `ars/academic-paper/WORKFLOW.md` in `disclosure` mode |
+| `/ars-format-convert`, `ars-format-convert` | `ars/commands/ars-format-convert.md` | `ars/academic-paper/WORKFLOW.md` in `format-convert` mode |
+| `/ars-revision-coach`, `ars-revision-coach` | `ars/commands/ars-revision-coach.md` | `ars/academic-paper/WORKFLOW.md` in `revision-coach` mode |
+| `/ars-revision`, `ars-revision` | `ars/commands/ars-revision.md` | `ars/academic-paper/WORKFLOW.md` in `revision` mode |
+| `/ars-full`, `ars-full` | `ars/commands/ars-full.md` | `ars/academic-pipeline/WORKFLOW.md` |
 
 If the Codex client reserves slash-prefixed input before it reaches the model,
 tell the user to use the plain alias form, for example `ars-plan my topic`.
@@ -93,7 +97,7 @@ using them in Codex:
 | Bash, Write, Edit | Treat as capability descriptions, not required tool names. Follow Codex safety rules and the user's filesystem constraints. |
 | Claude, Claude Code, model-specific wording | Interpret as "the current Codex agent" unless the text is part of a disclosure template or historical example. |
 | `ARS_CROSS_MODEL`, `ARS_CROSS_MODEL_SAMPLE_INTERVAL` | Treat upstream secondary-model dispatch instructions as no-op unless the user explicitly asks for cross-model review. When explicitly enabled in this Codex package, use Anthropic Claude Opus 4.7 via API (`ARS_CROSS_MODEL=claude-opus-4.7`, `ANTHROPIC_API_KEY`); do not route this reviewer through Codex/OpenAI APIs. Skip unconfigured cross-model report sections instead of inventing results. |
-| `fresh Claude Code session`, `Claude Code session` | Read as "a new Codex conversation". Material Passport reset semantics still apply; only the runtime changes. This rule covers `ars/academic-pipeline/SKILL.md`, `ars/academic-pipeline/agents/pipeline_orchestrator_agent.md`, `ars/academic-pipeline/references/passport_as_reset_boundary.md`, `ars/experiment-agent/README.md`, `ars/experiment-agent/README.zh-TW.md`, and `ars/docs/PERFORMANCE.md`. |
+| `fresh Claude Code session`, `Claude Code session` | Read as "a new Codex conversation". Material Passport reset semantics still apply; only the runtime changes. This rule covers `ars/academic-pipeline/WORKFLOW.md`, `ars/academic-pipeline/agents/pipeline_orchestrator_agent.md`, `ars/academic-pipeline/references/passport_as_reset_boundary.md`, `ars/experiment-agent/README.md`, `ars/experiment-agent/README.zh-TW.md`, and `ars/docs/PERFORMANCE.md`. |
 | `/ars-*` slash command, Claude plugin command | Treat `ars/commands/ars-*.md` as optional prompt recipes. Codex does not register slash commands from this package. |
 | SessionStart hook, SubagentStop hook, `hooks/hooks.json` | Treat as upstream Claude Code hook metadata only. Do not install or execute Claude hooks in Codex unless the user explicitly asks to inspect or port a hook. |
 
@@ -101,7 +105,7 @@ using them in Codex:
 
 When a workflow lists agents:
 
-1. Read the workflow `SKILL.md` to identify the mode and phase.
+1. Read the workflow `WORKFLOW.md` to identify the mode and phase.
 2. Read the specific `agents/<name>.md` files for the current phase.
 3. Treat each agent file as a scoped role prompt with an input/output contract.
 4. Produce the phase output in the current conversation unless the user requested files.

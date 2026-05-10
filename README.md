@@ -38,7 +38,7 @@ Use this repo when you want the Codex-native single-suite skill.
 
 ## Versioning
 
-This Codex package is version `0.1.3`. The repo-root `VERSION` file,
+This Codex package is version `0.1.4`. The repo-root `VERSION` file,
 `skills/academic-research-suite/SKILL.md` metadata version, and
 `skills/academic-research-suite/manifest.json` `adapter_version` track the
 Codex package version independently of the vendored ARS suite. Vendored upstream
@@ -188,7 +188,7 @@ v3.7 plugin where Codex has an equivalent concept.
 |---|---|
 | One installable plugin | One installable Codex skill at `skills/academic-research-suite` |
 | `/ars-*` slash commands | Emulated as `ars-*` aliases through the skill router; not native slash commands |
-| Four upstream skills auto-discovered from `skills/` symlinks | Single Codex router skill selects the workflow and reads the vendored workflow `SKILL.md` |
+| Four upstream skills auto-discovered from `skills/` symlinks | Single Codex router skill selects the workflow and reads the vendored workflow `WORKFLOW.md` files |
 | Plugin-shipped agents | Agent files are role/phase prompts; Codex runs them inline unless the user explicitly asks for delegated subagents |
 | `model: opus` / `model: sonnet` command routing | Treated as Claude metadata; Codex uses the active model |
 | SessionStart and SubagentStop hooks | Vendored for traceability only; Codex does not install or execute Claude hooks |

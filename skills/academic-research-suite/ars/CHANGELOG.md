@@ -131,7 +131,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-- `academic-pipeline/SKILL.md` frontmatter `version: "3.7.0"` + H1 +
+- `academic-pipeline/WORKFLOW.md` frontmatter `version: "3.7.0"` + H1 +
   Version Info table.
 - `MODE_REGISTRY.md` Last updated bumped to `v3.7.0 (2026-05-05)`.
 - `.claude/CLAUDE.md` Skills Overview row + Suite version footer bumped
@@ -199,7 +199,7 @@ Reference: `feedback_codex_review_vs_resume_audit_scope.md`.
   evaluator 5+5 / reviewer 5+6 (reviewer surfaces remain zero-touch per §3.6).
   `[GENERATOR-PHASE-ABORTED]` abort tag with 5% / three-month operational
   monitor.
-- **`academic-paper/SKILL.md` `## v3.6.6 Generator-Evaluator Contract Protocol`
+- **`academic-paper/WORKFLOW.md` `## v3.6.6 Generator-Evaluator Contract Protocol`
   orchestration block** (101 lines): four-call structure with system-vs-user
   content discipline, schema-vs-runtime emission distinction, per-phase lint,
   abort handling, two valid Stage 3 entry paths (standard F0/F4 + exceptional
@@ -260,7 +260,7 @@ Reference: `feedback_codex_review_vs_resume_audit_scope.md`.
   v3.6.6 implementation work fully completes.
 - **`academic-paper-reviewer/references/sprint_contract_protocol.md`
   cross-reference** noting Schema 13.1 since v3.6.6 + pointing readers at
-  `academic-paper/SKILL.md` + design doc §5 for the parallel
+  `academic-paper/WORKFLOW.md` + design doc §5 for the parallel
   generator-evaluator protocol. The reviewer protocol itself is byte-equivalent
   across v3.6.2 → v3.6.8 (zero-touch promise per §3.6).
 
@@ -518,10 +518,10 @@ Reference: `feedback_codex_review_vs_resume_audit_scope.md`.
 
 - `shared/handoff_schemas.md` Schema 9 — retired the v3.6.4 "Consumer-side integration
   deferred to v3.6.5+" caveat; replaced with backpointer to the consumer protocol.
-- `deep-research/SKILL.md` 2.9.1 → 2.9.2 — bibliography_agent corpus-first flow (also
+- `deep-research/WORKFLOW.md` 2.9.1 → 2.9.2 — bibliography_agent corpus-first flow (also
   syncs Version Info footer that lagged at 2.9.0).
-- `academic-paper/SKILL.md` 3.1.0 → 3.1.1 — literature_strategist_agent corpus-first flow.
-- `academic-pipeline/SKILL.md` 3.6.4 → 3.6.5 — suite version invariant.
+- `academic-paper/WORKFLOW.md` 3.1.0 → 3.1.1 — literature_strategist_agent corpus-first flow.
+- `academic-pipeline/WORKFLOW.md` 3.6.4 → 3.6.5 — suite version invariant.
 - `.claude/CLAUDE.md`, `MODE_REGISTRY.md`, `README.md`, `README.zh-TW.md`,
   `scripts/check_spec_consistency.py` updated for the version bump (suite version,
   badge, tag, changelog heading).
@@ -553,7 +553,7 @@ Reference: `feedback_codex_review_vs_resume_audit_scope.md`.
 
 - `academic-pipeline/references/passport_as_reset_boundary.md`: "deferred to v3.6.4, PR-B" placeholders replaced with forward references to `adapters/overview.md` and `literature_corpus_entry.schema.json`.
 - `shared/handoff_schemas.md`: Schema 9 optional fields table adds `literature_corpus`; new "Literature Corpus Input Port (v3.6.4)" subsection appended after Reset Boundary Extension.
-- `academic-pipeline/SKILL.md` bumped 3.6.3 → 3.6.4 (suite version invariant). Other skills retain independent semver.
+- `academic-pipeline/WORKFLOW.md` bumped 3.6.3 → 3.6.4 (suite version invariant). Other skills retain independent semver.
 - `.claude/CLAUDE.md`, `MODE_REGISTRY.md`, `README.md`, `README.zh-TW.md`, `scripts/check_spec_consistency.py` updated for the version bump (suite version, badge, tag, changelog heading).
 
 ### Not changed (explicit non-goals)
@@ -574,7 +574,7 @@ Reference: `feedback_codex_review_vs_resume_audit_scope.md`.
 ### Changed
 - `academic-pipeline/agents/pipeline_orchestrator_agent.md` adds §"Passport Reset Boundary (v3.6.3+)" and §"Resume Mode: `resume_from_passport`". FULL Checkpoint Template includes conditional reset-handoff tag slot.
 - `academic-pipeline/references/pipeline_state_machine.md` documents `awaiting_resume` transitions derived from the ledger (no out-of-band state).
-- `academic-pipeline/SKILL.md` adds `resume_from_passport` to the mode table and bumps version 3.6.2 → 3.6.3.
+- `academic-pipeline/WORKFLOW.md` adds `resume_from_passport` to the mode table and bumps version 3.6.2 → 3.6.3.
 - `shared/handoff_schemas.md` Schema 9 gains `reset_boundary` row + "Reset Boundary Extension (v3.6.3)" subsection with full YAML example showing both kinds.
 
 ### Changed (post-P1 fixes)
@@ -602,7 +602,7 @@ Reference: `feedback_codex_review_vs_resume_audit_scope.md`.
   - `academic-paper/agents/draft_writer_agent.md` — quick style check, paragraph variation, colloquialisms, transition-word usage (F-003, 4 spots)
   - `academic-pipeline/agents/pipeline_orchestrator_agent.md` — **split** "Prohibited Actions" (9 items, all negative) into "Scope (delegate, don't perform)" (items 1-6, positive delegation) + "Hard boundaries (never violate)" (items 7-9, kept negative as intentional safety directives for silent-failure modes: fabrication, skipped checkpoints, skipped integrity gates) (F-004)
   - `academic-pipeline/agents/collaboration_depth_agent.md` — Agent-specific boundaries 4 bullets (F-005)
-  - `academic-pipeline/SKILL.md` — single-line UX guidance (F-006)
+  - `academic-pipeline/WORKFLOW.md` — single-line UX guidance (F-006)
   - `academic-paper/references/academic_writing_style.md` — §4 Formality 3 items (F-007, discovered during apply)
 
 ### Notes
@@ -620,7 +620,7 @@ Reference: `feedback_codex_review_vs_resume_audit_scope.md`.
 
 ### Changed
 
-- `deep-research/SKILL.md`, `deep-research/references/socratic_mode_protocol.md`, `academic-pipeline/references/process_summary_protocol.md` — aligned text updates for the new probe section. No behaviour change when the env var is unset.
+- `deep-research/WORKFLOW.md`, `deep-research/references/socratic_mode_protocol.md`, `academic-pipeline/references/process_summary_protocol.md` — aligned text updates for the new probe section. No behaviour change when the env var is unset.
 
 ### Version
 
@@ -638,7 +638,7 @@ Reference: `feedback_codex_review_vs_resume_audit_scope.md`.
 - `academic-pipeline/references/reinforcement_content.md` row for FULL/SLIM checkpoint — IRON RULE: observer is advisory only, never blocks, never a leaderboard.
 
 ### Changed
-- `academic-pipeline/SKILL.md` — version bump `3.3.0 → 3.4.0`. Agent Team table grows to 4 rows. New "Collaboration Depth Observer" section with explicit non-blocking guarantees and distinction from integrity verification and Stage 6 self-reflection. Reference Files table adds rubric entry.
+- `academic-pipeline/WORKFLOW.md` — version bump `3.3.0 → 3.4.0`. Agent Team table grows to 4 rows. New "Collaboration Depth Observer" section with explicit non-blocking guarantees and distinction from integrity verification and Stage 6 self-reflection. Reference Files table adds rubric entry.
 - `academic-pipeline/agents/pipeline_orchestrator_agent.md` — checkpoint Steps flow amended: after `state_tracker` update the orchestrator invokes `collaboration_depth_agent` on the just-completed stage's dialogue range (FULL/SLIM only; MANDATORY integrity gates explicitly skip) and injects its output into checkpoint templates as a named "Collaboration Depth" section. FULL checkpoint template expanded with the observer block; SLIM template gains a one-line compact observer summary; MANDATORY template unchanged (integrity gates never dilute). New "Collaboration Depth Observer" subsection under §3 Checkpoint Management covers invocation, cross-model behaviour, short-stage guard, and non-blocking IRON RULE.
 - `academic-pipeline/agents/state_tracker_agent.md` — Write Access Control adds `collaboration_depth_agent` (append-only `collaboration_depth_history[]`). New `dialogue_log_ref` turn-range pointer per stage; new `collaboration_depth_history[]` root-level array; new `append_observer_report()` function (only function that writes the history; preconditions block any attempt to turn observer output into a blocking condition).
 - `scripts/_skill_lint.py` — new shared `split_frontmatter(text) -> (dict|None, str)` lenient helper, reused by the new lint.
@@ -670,9 +670,9 @@ Reference: `feedback_codex_review_vs_resume_audit_scope.md`.
 ### Changed
 
 - `shared/handoff_schemas.md`: Schema 12 pointer + Material Passport `compliance_history[]` (append-only audit trail).
-- `academic-pipeline/SKILL.md` (v3.2.2 → v3.3.0): Stage 2.5 / 4.5 extended with compliance payload; checkpoint dashboard gains compliance row.
-- `deep-research/SKILL.md` (v2.8.1 → v2.9.0): `systematic-review` mode now triggers `compliance_agent` at both gates.
-- `academic-paper/SKILL.md` (v3.0.2 → v3.1.0): `full` mode adds pre-finalize RAISE principles-only check (warn-only). `disclosure` mode unchanged and complementary.
+- `academic-pipeline/WORKFLOW.md` (v3.2.2 → v3.3.0): Stage 2.5 / 4.5 extended with compliance payload; checkpoint dashboard gains compliance row.
+- `deep-research/WORKFLOW.md` (v2.8.1 → v2.9.0): `systematic-review` mode now triggers `compliance_agent` at both gates.
+- `academic-paper/WORKFLOW.md` (v3.0.2 → v3.1.0): `full` mode adds pre-finalize RAISE principles-only check (warn-only). `disclosure` mode unchanged and complementary.
 - `.github/workflows/spec-consistency.yml`: added compliance validator + unit test runner steps.
 - `scripts/check_spec_consistency.py`: version pins bumped.
 - `README.md`, `README.zh-TW.md`, `.claude/CLAUDE.md`, `MODE_REGISTRY.md`: suite version → 3.4.0.
@@ -734,7 +734,7 @@ Reference: `feedback_codex_review_vs_resume_audit_scope.md`.
 - `scripts/check_spec_consistency.py` now validates README relative Markdown links so future dead links fail CI.
 
 ### Changed
-- DOCX generation contract aligned across README, `academic-paper/SKILL.md`, `academic-paper/agents/formatter_agent.md`, `academic-pipeline/SKILL.md`, and `academic-pipeline/agents/pipeline_orchestrator_agent.md`: direct `.docx` output is Pandoc-dependent, with Markdown + conversion instructions as the fallback.
+- DOCX generation contract aligned across README, `academic-paper/WORKFLOW.md`, `academic-paper/agents/formatter_agent.md`, `academic-pipeline/WORKFLOW.md`, and `academic-pipeline/agents/pipeline_orchestrator_agent.md`: direct `.docx` output is Pandoc-dependent, with Markdown + conversion instructions as the fallback.
 - Added regression tests covering missing closing fences and non-mapping YAML frontmatter in both lint test suites.
 - Suite version bumped to `3.3.3` across release-facing docs; `academic-paper` patch-bumped to `3.0.2` and `academic-pipeline` patch-bumped to `3.2.2`.
 
@@ -764,7 +764,7 @@ Reference: `feedback_codex_review_vs_resume_audit_scope.md`.
 - Cross-model wording now matches the implemented scope: integrity sample verification and independent DA critique are shipped; sixth-reviewer peer review remains planned
 - `academic-pipeline` checkpoint docs now state that SLIM checkpoints still wait for explicit user confirmation
 - `academic-pipeline` integrity gate docs now consistently state that Stage 2.5 and Stage 4.5 cannot be skipped
-- `academic-paper/SKILL.md` mode-count heading and `academic-paper-reviewer/SKILL.md` Version Info block
+- `academic-paper/WORKFLOW.md` mode-count heading and `academic-paper-reviewer/WORKFLOW.md` Version Info block
 
 ### Added
 - `scripts/check_spec_consistency.py` to catch mode-count, version-block, and forbidden-claim drift
