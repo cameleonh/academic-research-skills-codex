@@ -8,6 +8,14 @@ Codex-native packaging of the Academic Research Skills suite. This is the
 sibling Codex distribution of
 [Academic Research Skills for Claude Code](https://github.com/Imbad0202/academic-research-skills).
 
+## Workflow Overview
+
+The Codex package registers one root skill, `$academic-research-suite`, then
+routes each request to the smallest ARS workflow needed for the current research
+or manuscript task.
+
+![Academic Research Suite workflow overview](assets/academic-research-suite-flow.svg)
+
 This repository vendors the ARS workflow content as a single Codex skill:
 
 ```text
