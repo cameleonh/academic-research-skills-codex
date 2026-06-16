@@ -123,7 +123,16 @@ def infer_natural_route(request: str) -> tuple[str, str, str]:
     lowered = request.lower()
     if is_vague_paper_topic(request):
         return "deep-research", "socratic", "paper_topic_scoping_override"
-    if "reviewer" in lowered or "peer review" in lowered or "review this paper" in lowered:
+    if (
+        "reviewer" in lowered
+        or "peer review" in lowered
+        or "review this paper" in lowered
+        or "review this manuscript" in lowered
+        or "manuscript review" in lowered
+        or "editorial decision" in lowered
+        or "desk-reject" in lowered
+        or "desk reject" in lowered
+    ):
         return "academic-paper-reviewer", "full", "natural_review_request"
     if "systematic review" in lowered or "meta-analysis" in lowered:
         return "deep-research", "systematic-review", "natural_research_request"

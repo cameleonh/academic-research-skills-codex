@@ -107,6 +107,17 @@ def test_reviewer_full_agent_team_keeps_synthesis_after_independent_reviews() ->
     assert plan["agent_team_plan"][-1]["dispatch"] == "after_independent_reviews"
 
 
+def test_natural_manuscript_review_routes_to_reviewer_workflow() -> None:
+    planner = _load_planner()
+    plan = planner.plan_request(
+        "Use academic-research-suite to review this manuscript for methodology and citation integrity.",
+        env={},
+    )
+    assert plan["workflow"] == "academic-paper-reviewer"
+    assert plan["mode"] == "full"
+    assert plan["route_reason"] == "natural_review_request"
+
+
 def test_cli_outputs_json_plan() -> None:
     result = subprocess.run(
         [sys.executable, str(PLANNER_PATH), "ars-reviewer", "full", "review"],
